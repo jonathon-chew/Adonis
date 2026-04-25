@@ -74,7 +74,7 @@ def PrintTable(m: dict[Any, Any], keyColour: str="Blue", itemColour: str="Green"
          itemColour = "Green"
 
     for k, v in m.items():
-         print(f"{k}{v}")
+         print(f"{k}: {v}")
 	
 
 def PrintRGBColour(r:int , g:int , b: int, message:str ) :

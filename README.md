@@ -21,25 +21,27 @@
 - support direct RGB colour formatting through `PrintRGBColour(...)` and `ReturnRGBColour(...)`
 - include convenience helpers such as `PrintError(...)`, `PrintInfo(...)`, `PrintWarning(...)`, `ReturnError(...)`, `ReturnInfo(...)`, and `ReturnWarning(...)`
 - include basic table-style formatting helpers with `PrintTable(...)` and `ReturnTable(...)`
-- expose print, return, and utility helpers through the package `__init__.py`
+- expose the main print and return helpers through the package `__init__.py`
 
 ## Behavior Notes (Current)
 - **Two API styles:** `PrintColour.py` writes directly to stdout, while `ReturnColour.py` returns the ANSI-formatted string.
 - **Shared helpers:** `utils.py` now holds the shared helper functions, including `Colour(...)`, `checkColourInList(...)`, `unacceptableColour(...)`, and `rainbow(...)`.
 - **Colour normalization:** most colour-based functions normalize the first letter, so `"red"` and `"Red"` both resolve to `Red`.
 - **Rainbow mode:** rainbow output is generated per character using the `rainbow()` helper in `utils.py`.
+- **Package root imports:** `import Adonis` works, and the package root exposes the main print and return helpers. Utility helpers such as `rainbow(...)` are still imported from `Adonis.utils`.
 - **Table helpers:** the table helpers currently concatenate keys and values directly rather than rendering padded columns.
-- **Current implementation quirks:** the codebase now has a clearer module split, but some internal imports still rely on top-level names such as `Ansii` and `utils`, and the print module still shadows Python's built-in `print`. I left that behavior intact and tested around it rather than changing the library code in this pass.
+- **Current implementation quirks:** the module layout is cleaner now, but there are still a few rough edges such as table formatting, partial package-root exports, and some inconsistent naming.
 
 ## How To Run
 
 You can experiment with the library from a Python session or script by importing from either the package root or the individual modules:
 
 ```python
-from Adonis import PrintInfo, ReturnColour, rainbow
+from Adonis import PrintInfo, ReturnColour
 
 from Adonis.PrintColour import PrintInfo
 from Adonis.ReturnColour import ReturnColour
+from Adonis.utils import rainbow
 ```
 
 ## Examples
@@ -82,7 +84,8 @@ print(ReturnTable(summary))
 Example output:
 
 ```python
-projectAdonislanguagePython
+project: Adonis 
+language: Python
 ```
 
 ## Why This Is Different
@@ -104,7 +107,7 @@ This project uses Python's built-in `unittest` module. The tests currently cover
 - RGB formatting helpers
 - table-return behavior
 - shared helper coverage for `checkColourInList(...)` and `rainbow(...)`
-- import/bootstrap coverage for the current package layout
+- direct package-import coverage for the current package layout
 
 Run the full test suite with:
 
@@ -124,7 +127,6 @@ This project helped me get more comfortable with:
 
 ## Next Improvements
 
-- clean up the internal import structure
-- fix the custom `print` shadowing issue in `PrintColour.py`
 - improve validation and error messages for unsupported inputs
 - make the table helpers render more clearly formatted output
+- decide whether utility helpers such as `rainbow(...)` and `Print(...)` should also be exported from the package root

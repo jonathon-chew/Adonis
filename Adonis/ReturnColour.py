@@ -26,7 +26,7 @@ def ReturnColour(color:str, message: str) :
 	
 
 
-def returnMessage ( message :str  ):
+def ReturnMessage ( message :str  ):
 	"""
     Randomly choose a colour for you from: Black, Red, Green, Yellow, Blue, Purple, Cyan, White and prints it
     """
@@ -75,7 +75,7 @@ def ReturnTable(m: dict[Any, Any], keyColour: str="Blue", itemColour: str="Green
 
     returnString = ""
     for k, v in m.items():
-         returnString += f"{k}{v}"
+         returnString += f"{k}: {v}\n"
     
     return returnString
 	
