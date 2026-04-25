@@ -1,0 +1,4 @@
+py-flags_venv/
+docs/*
+__pycache__
+Archive
