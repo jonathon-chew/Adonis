@@ -27,7 +27,7 @@ class TestReturnColour(unittest.TestCase):
 
     def test_return_table_concatenates_key_value_pairs(self):
         result = RETURN_COLOUR.ReturnTable({"name": "Adonis", "lang": "Python"})
-        self.assertEqual(result, "nameAdonislangPython")
+        self.assertEqual(result, "name: Adonis\nlang: Python\n")
 
     def test_return_bold_uses_bold_palette(self):
         result = RETURN_COLOUR.ReturnBold("Blue", "Focus")

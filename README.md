@@ -1,7 +1,7 @@
 # Adonis
 
 ## Summary
-`Adonis` is a small Python project for working with ANSI terminal colours. I built it as a lightweight utility so I could print or return coloured strings without rewriting escape sequences by hand, and it also gave me a compact space to explore simple library design, terminal formatting, and test coverage around a small public API.
+`Adonis` is a small Python library for working with ANSI terminal colours. I built it as a lightweight utility so I could print or return coloured strings without rewriting escape sequences by hand, while keeping the API small enough to be easy to drop into scripts and terminal tools.
 
 ## What This Project Demonstrates
 - Python utility-library design around a small focused API
@@ -24,24 +24,27 @@
 - expose the main print and return helpers through the package `__init__.py`
 
 ## Behavior Notes (Current)
-- **Two API styles:** `PrintColour.py` writes directly to stdout, while `ReturnColour.py` returns the ANSI-formatted string.
+- **Two API styles:** `PrintColour.py` writes directly to stdout, while `ReturnColour.py` returns ANSI-formatted strings for reuse elsewhere.
 - **Shared helpers:** `utils.py` now holds the shared helper functions, including `Colour(...)`, `checkColourInList(...)`, `unacceptableColour(...)`, and `rainbow(...)`.
 - **Colour normalization:** most colour-based functions normalize the first letter, so `"red"` and `"Red"` both resolve to `Red`.
 - **Rainbow mode:** rainbow output is generated per character using the `rainbow()` helper in `utils.py`.
-- **Package root imports:** `import Adonis` works, and the package root exposes the main print and return helpers. Utility helpers such as `rainbow(...)` are still imported from `Adonis.utils`.
-- **Table helpers:** the table helpers currently concatenate keys and values directly rather than rendering padded columns.
-- **Current implementation quirks:** the module layout is cleaner now, but there are still a few rough edges such as table formatting, partial package-root exports, and some inconsistent naming.
+- **Recommended imports:** `import Adonis` works, and the package root exposes the main print and return helpers. Utility helpers such as `rainbow(...)` are imported from `Adonis.utils`.
+- **Table helpers:** the table helpers are intentionally simple and currently focus on readable key/value output rather than padded terminal layouts.
 
 ## How To Run
 
-You can experiment with the library from a Python session or script by importing from either the package root or the individual modules:
+The recommended import style is from the package root for the main helpers, and from `Adonis.utils` for the utility functions:
 
 ```python
 from Adonis import PrintInfo, ReturnColour
+from Adonis.utils import rainbow
+```
 
+If you prefer, you can also import from the individual modules:
+
+```python
 from Adonis.PrintColour import PrintInfo
 from Adonis.ReturnColour import ReturnColour
-from Adonis.utils import rainbow
 ```
 
 ## Examples
@@ -96,7 +99,7 @@ Many terminal-colour helpers are either extremely minimal or wrapped into much l
 - support for both standard ANSI styles and direct RGB output
 - a compact codebase that is easy to read through in one sitting
 
-That makes it useful both as a practical helper and as a small example of how I approach utility-library design.
+That makes it useful as a practical helper for scripts, quick CLIs, and terminal-based tooling without pulling in a larger dependency surface.
 
 ## Testing
 
