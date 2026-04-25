@@ -2,7 +2,7 @@ import math, random
 from typing import Any
 
 from . import utils
-from . import Ansii
+from . import Ansi
 
 def ReturnColour(color:str, message: str) :
     """
@@ -15,14 +15,14 @@ def ReturnColour(color:str, message: str) :
         case "Rainbow":
             messageLength = len(message)
             for i in range(messageLength):
-                r, g, b = utils.rainbow(i)
-                return f"\033[38;2;{r};{g};{b}m{message[i]}\033[0m{Ansii.reset}"
+                r, g, b = utils._rainbow(i)
+                return f"\033[38;2;{r};{g};{b}m{message[i]}\033[0m{Ansi.reset}"
             
         case "Empty":
             return message
         case _:
-            colourPicked:str = Ansii.colour[colourChoice]
-            return f"{colourPicked}{message}{Ansii.reset}"
+            colourPicked:str = Ansi.colour[colourChoice]
+            return f"{colourPicked}{message}{Ansi.reset}"
 	
 
 
@@ -30,11 +30,11 @@ def ReturnMessage ( message :str  ):
 	"""
     Randomly choose a colour for you from: Black, Red, Green, Yellow, Blue, Purple, Cyan, White and prints it
     """
-	randomIndex = random.randint(0, len(Ansii.colour))
+	randomIndex = random.randint(0, len(Ansi.colour))
 
-	keys = Ansii.colour.keys()
+	keys = Ansi.colour.keys()
 	
-	colourChoice:str = Ansii.colour[keys[randomIndex]] # type: ignore
+	colourChoice:str = Ansi.colour[keys[randomIndex]] # type: ignore
 
 	ReturnColour(colourChoice, message)
 
@@ -67,15 +67,15 @@ def ReturnTable(m: dict[Any, Any], keyColour: str="Blue", itemColour: str="Green
     Pass in a map of any values and returns a printed table of the key / values
     """
 
-    if keyColour not in Ansii.colour.keys():
+    if keyColour not in Ansi.colour.keys():
          keyColour = "Blue"
         
-    if itemColour not in Ansii.colour.keys():
+    if itemColour not in Ansi.colour.keys():
          itemColour = "Green"
 
     returnString = ""
     for k, v in m.items():
-         returnString += f"{k}: {v}\n"
+         returnString += f"{ReturnColour(keyColour, k)}: {ReturnColour(itemColour, v)}\n"
     
     return returnString
 	
@@ -86,7 +86,7 @@ def ReturnRGBColour(r:int , g:int , b: int, message:str ) :
     Can error if the values are not the right size
     """
 
-    return f"\033[38;2;{r};{g};{b}m{message}\033[0m{Ansii.reset}"
+    return f"\033[38;2;{r};{g};{b}m{message}\033[0m{Ansi.reset}"
 
 
 def ReturnBold(colourChoice:str, message:str ) :
@@ -95,9 +95,9 @@ def ReturnBold(colourChoice:str, message:str ) :
     Can error if colour not found
     """
     
-    colourPicked :str = Ansii.bold[colourChoice[0].upper()+colourChoice[1:]]
+    colourPicked :str = Ansi.bold[colourChoice[0].upper()+colourChoice[1:]]
 
-    return f"{colourPicked}{message}{Ansii.reset}"
+    return f"{colourPicked}{message}{Ansi.reset}"
 
 
 def ReturnUnderline(colourChoice:str, message :str ) :
@@ -105,10 +105,11 @@ def ReturnUnderline(colourChoice:str, message :str ) :
     Options: Black, Red, Green, Yellow, Blue, Purple, Cyan, White
     Can error if colour not found
     """
-    
-    colourPicked :str = Ansii.underline[colourChoice[0].upper()+colourChoice[1:]]
 
-    return f"{colourPicked}{message}{Ansii.reset}"
+    colourConverted = utils.convert_colour(colourChoice)
+    colourPicked :str = Ansi.underline[colourConverted]
+
+    return f"{colourPicked}{message}{Ansi.reset}"
 
 
 def ReturnBackground(colourChoice:str, message :str ) :
@@ -117,9 +118,9 @@ def ReturnBackground(colourChoice:str, message :str ) :
     Can error if colour not found
     """
 
-    colourPicked :str = Ansii.background[colourChoice[0].upper()+colourChoice[1:]]
+    colourPicked :str = Ansi.background[colourChoice[0].upper()+colourChoice[1:]]
 
-    return f"{colourPicked}{message}{Ansii.reset}{Ansii.reset}"
+    return f"{colourPicked}{message}{Ansi.reset}{Ansi.reset}"
 
 def ReturnHighIntensity(colourChoice:str, message :str ) :
     """
@@ -127,9 +128,9 @@ def ReturnHighIntensity(colourChoice:str, message :str ) :
     Can error if colour not found
     """
 
-    colourPicked :str = Ansii.high_Intensity[colourChoice[0].upper()+colourChoice[1:]]
+    colourPicked :str = Ansi.high_Intensity[colourChoice[0].upper()+colourChoice[1:]]
 
-    return f"{colourPicked}{message}{Ansii.reset}"
+    return f"{colourPicked}{message}{Ansi.reset}"
 
 
 def ReturnBoldHighIntensity(colourChoice:str, message :str ) :
@@ -137,9 +138,9 @@ def ReturnBoldHighIntensity(colourChoice:str, message :str ) :
     Options: Black, Red, Green, Yellow, Blue, Purple, Cyan, White
     Can error if colour not found
     """
-    colourPicked :str = Ansii.bold_High_Intensity[colourChoice[0].upper()+colourChoice[1:]]
+    colourPicked :str = Ansi.bold_High_Intensity[colourChoice[0].upper()+colourChoice[1:]]
 
-    return f"{colourPicked}{message}{Ansii.reset}"
+    return f"{colourPicked}{message}{Ansi.reset}"
 
 def ReturnHighIntensityBackgrounds(colourChoice:str, message :str ) :
     """
@@ -147,8 +148,8 @@ def ReturnHighIntensityBackgrounds(colourChoice:str, message :str ) :
     Can error if colour not found
     """
 
-    colourPicked :str = Ansii.high_Intensity_backgrounds[colourChoice[0].upper()+colourChoice[1:]]
+    colourPicked :str = Ansi.high_Intensity_backgrounds[colourChoice[0].upper()+colourChoice[1:]]
 
-    return f"{colourPicked}{message}{Ansii.reset}"
+    return f"{colourPicked}{message}{Ansi.reset}"
 	
 

@@ -10,12 +10,12 @@ def load_adonis_modules():
         sys.path.insert(0, str(project_root))
 
     package = importlib.import_module("Adonis")
-    ansii = importlib.import_module("Adonis.Ansii")
+    ansi = importlib.import_module("Adonis.Ansi")
     utils = importlib.import_module("Adonis.utils")
 
     return {
         "package": package,
-        "ansii": ansii,
+        "Ansi": ansi,
         "utils": utils,
         "print_colour": importlib.import_module("Adonis.PrintColour"),
         "return_colour": importlib.import_module("Adonis.ReturnColour"),

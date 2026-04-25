@@ -2,7 +2,8 @@ import math, random
 from typing import Any
 
 from . import utils
-from . import Ansii
+from . import Ansi
+from Adonis.ReturnColour import ReturnColour
 
 def PrintColour(color:str, message: str) :
     """
@@ -15,14 +16,14 @@ def PrintColour(color:str, message: str) :
         case "Rainbow":
             messageLength = len(message)
             for i in range(messageLength):
-                r, g, b = utils.rainbow(i)
-                print(f"\033[38;2;{r};{g};{b}m{message[i]}\033[0m{Ansii.reset}")
+                r, g, b = utils._rainbow(i)
+                print(f"\033[38;2;{r};{g};{b}m{message[i]}\033[0m{Ansi.reset}")
             
         case "Empty":
             print(message)
         case _:
-            colourPicked:str = Ansii.colour[colourChoice]
-            print(f"{colourPicked}{message}{Ansii.reset}")
+            colourPicked:str = Ansi.colour[colourChoice]
+            print(f"{colourPicked}{message}{Ansi.reset}")
 	
 
 
@@ -30,11 +31,11 @@ def Print(message :str ) :
 	"""
     Randomly choose a colour for you from: Black, Red, Green, Yellow, Blue, Purple, Cyan, White and prints it
     """
-	randomIndex = random.randint(0, len(Ansii.colour))
+	randomIndex = random.randint(0, len(Ansi.colour))
 
-	keys = Ansii.colour.keys()
+	keys = Ansi.colour.keys()
 	
-	colourChoice:str = Ansii.colour[keys[randomIndex]] # type: ignore
+	colourChoice:str = Ansi.colour[keys[randomIndex]] # type: ignore
 
 	PrintColour(colourChoice, message)
 
@@ -67,14 +68,14 @@ def PrintTable(m: dict[Any, Any], keyColour: str="Blue", itemColour: str="Green"
     Pass in a map of any values and returns a printed table of the key / values
     """
 
-    if keyColour not in Ansii.colour.keys():
+    if keyColour not in Ansi.colour.keys():
          keyColour = "Blue"
         
-    if itemColour not in Ansii.colour.keys():
+    if itemColour not in Ansi.colour.keys():
          itemColour = "Green"
 
     for k, v in m.items():
-         print(f"{k}: {v}")
+         print(f"{ReturnColour(keyColour, k)}: {ReturnColour(itemColour, v)}")
 	
 
 def PrintRGBColour(r:int , g:int , b: int, message:str ) :
@@ -83,7 +84,7 @@ def PrintRGBColour(r:int , g:int , b: int, message:str ) :
     Can error if the values are not the right size
     """
 
-    print(f"\033[38;2;{r};{g};{b}m{message}\033[0m{Ansii.reset}")
+    print(f"\033[38;2;{r};{g};{b}m{message}\033[0m{Ansi.reset}")
 
 
 def PrintBold(colourChoice:str, message:str ) :
@@ -92,9 +93,11 @@ def PrintBold(colourChoice:str, message:str ) :
     Can error if colour not found
     """
     
-    colourPicked :str = Ansii.bold[colourChoice[0].upper()+colourChoice[1:]]
+    colourPicked :str = Ansi.bold[colourChoice[0].upper()+colourChoice[1:]]
+    if not utils._checkColourInList(colourPicked): 
+        utils._unacceptableColour(colourChoice)
 
-    print(f"{colourPicked}{message}{Ansii.reset}")
+    print(f"{colourPicked}{message}{Ansi.reset}")
 
 
 def PrintUnderline(colourChoice:str, message :str ) :
@@ -103,9 +106,12 @@ def PrintUnderline(colourChoice:str, message :str ) :
     Can error if colour not found
     """
     
-    colourPicked :str = Ansii.underline[colourChoice[0].upper()+colourChoice[1:]]
+    colourPicked :str = Ansi.underline[colourChoice[0].upper()+colourChoice[1:]]
+    if not utils._checkColourInList(colourPicked): 
+          utils._unacceptableColour(colourChoice)
 
-    print(f"{colourPicked}{message}{Ansii.reset}")
+
+    print(f"{colourPicked}{message}{Ansi.reset}")
 
 
 def PrintBackground(colourChoice:str, message :str ) :
@@ -114,9 +120,11 @@ def PrintBackground(colourChoice:str, message :str ) :
     Can error if colour not found
     """
 
-    colourPicked :str = Ansii.background[colourChoice[0].upper()+colourChoice[1:]]
+    colourPicked :str = Ansi.background[colourChoice[0].upper()+colourChoice[1:]]
+    if not utils._checkColourInList(colourPicked): 
+        utils._unacceptableColour(colourChoice)
 
-    print(f"{colourPicked}{message}{Ansii.reset}{Ansii.reset}")
+    print(f"{colourPicked}{message}{Ansi.reset}{Ansi.reset}")
 
 def PrintHighIntensity(colourChoice:str, message :str ) :
     """
@@ -124,9 +132,11 @@ def PrintHighIntensity(colourChoice:str, message :str ) :
     Can error if colour not found
     """
 
-    colourPicked :str = Ansii.high_Intensity[colourChoice[0].upper()+colourChoice[1:]]
+    colourPicked :str = Ansi.high_Intensity[colourChoice[0].upper()+colourChoice[1:]]
+    if not utils._checkColourInList(colourPicked): 
+        utils._unacceptableColour(colourChoice)
 
-    print(f"{colourPicked}{message}{Ansii.reset}")
+    print(f"{colourPicked}{message}{Ansi.reset}")
 
 
 def PrintBoldHighIntensity(colourChoice:str, message :str ) :
@@ -134,9 +144,11 @@ def PrintBoldHighIntensity(colourChoice:str, message :str ) :
     Options: Black, Red, Green, Yellow, Blue, Purple, Cyan, White
     Can error if colour not found
     """
-    colourPicked :str = Ansii.bold_High_Intensity[colourChoice[0].upper()+colourChoice[1:]]
+    colourPicked :str = Ansi.bold_High_Intensity[colourChoice[0].upper()+colourChoice[1:]]
+    if not utils._checkColourInList(colourPicked): 
+        utils._unacceptableColour(colourChoice)
 
-    print(f"{colourPicked}{message}{Ansii.reset}")
+    print(f"{colourPicked}{message}{Ansi.reset}")
 
 def PrintHighIntensityBackgrounds(colourChoice:str, message :str ) :
     """
@@ -144,8 +156,10 @@ def PrintHighIntensityBackgrounds(colourChoice:str, message :str ) :
     Can error if colour not found
     """
 
-    colourPicked :str = Ansii.high_Intensity_backgrounds[colourChoice[0].upper()+colourChoice[1:]]
+    colourPicked :str = Ansi.bold_High_Intensity[colourChoice[0].upper()+colourChoice[1:]]
+    if not utils._checkColourInList(colourPicked): 
+        utils._unacceptableColour(colourChoice)
 
-    print(f"{colourPicked}{message}{Ansii.reset}")
+    print(f"{colourPicked}{message}{Ansi.reset}")
 	
 
