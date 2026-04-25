@@ -21,19 +21,23 @@
 - support direct RGB colour formatting through `PrintRGBColour(...)` and `ReturnRGBColour(...)`
 - include convenience helpers such as `PrintError(...)`, `PrintInfo(...)`, `PrintWarning(...)`, `ReturnError(...)`, `ReturnInfo(...)`, and `ReturnWarning(...)`
 - include basic table-style formatting helpers with `PrintTable(...)` and `ReturnTable(...)`
+- expose print, return, and utility helpers through the package `__init__.py`
 
 ## Behavior Notes (Current)
 - **Two API styles:** `PrintColour.py` writes directly to stdout, while `ReturnColour.py` returns the ANSI-formatted string.
+- **Shared helpers:** `utils.py` now holds the shared helper functions, including `Colour(...)`, `checkColourInList(...)`, `unacceptableColour(...)`, and `rainbow(...)`.
 - **Colour normalization:** most colour-based functions normalize the first letter, so `"red"` and `"Red"` both resolve to `Red`.
-- **Rainbow mode:** rainbow output is generated per character using the `rainbow()` helper in `__main__.py`.
+- **Rainbow mode:** rainbow output is generated per character using the `rainbow()` helper in `utils.py`.
 - **Table helpers:** the table helpers currently concatenate keys and values directly rather than rendering padded columns.
-- **Current implementation quirks:** some imports and naming choices are inconsistent, and the print module currently shadows Python's built-in `print`. I left that behavior intact and tested around it rather than changing the library code in this pass.
+- **Current implementation quirks:** the codebase now has a clearer module split, but some internal imports still rely on top-level names such as `Ansii` and `utils`, and the print module still shadows Python's built-in `print`. I left that behavior intact and tested around it rather than changing the library code in this pass.
 
 ## How To Run
 
-You can experiment with the library from a Python session or script by importing from either the print-based or return-based modules:
+You can experiment with the library from a Python session or script by importing from either the package root or the individual modules:
 
 ```python
+from Adonis import PrintInfo, ReturnColour, rainbow
+
 from Adonis.PrintColour import PrintInfo
 from Adonis.ReturnColour import ReturnColour
 ```
@@ -99,8 +103,8 @@ This project uses Python's built-in `unittest` module. The tests currently cover
 - convenience helpers such as error, info, and warning output
 - RGB formatting helpers
 - table-return behavior
-- supported-colour checks
-- rainbow generation shape and value ranges
+- shared helper coverage for `checkColourInList(...)` and `rainbow(...)`
+- import/bootstrap coverage for the current package layout
 
 Run the full test suite with:
 
@@ -113,6 +117,7 @@ python3 -m unittest discover -s tests
 This project helped me get more comfortable with:
 - keeping a utility library small without making it vague
 - separating side-effecting functions from pure return-value helpers
+- splitting shared helper logic into a dedicated utility module
 - working with ANSI escape sequences directly
 - generating simple colour effects from math rather than hard-coded values
 - using tests to pin down existing behavior before refactoring

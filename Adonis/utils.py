@@ -1,5 +1,5 @@
 import math
-import Ansii
+from . import Ansii
 
 def Colour(option: str, color: str, message:str ):
 	"""
@@ -17,11 +17,11 @@ def Colour(option: str, color: str, message:str ):
 	allAcceptableColours = ', '.join(acceptableColours)
 
 	if option not in acceptableOptions :
-		raise ValueError("unable to recognise option: {optionChoice}  the options are: {allAcceptableOptions} ")
+		raise ValueError(f"unable to recognise option: {optionChoice}  the options are: {allAcceptableOptions} ")
 	
 
 	if colourChoice not in acceptableColours :
-		raise ValueError("unfortunately {colourChoice}  isn't a useable colour the options are: {allAcceptableColours} ")
+		raise ValueError(f"unfortunately {colourChoice}  isn't a useable colour the options are: {allAcceptableColours} ")
 	
 
 	command= optionChoice.lower()
@@ -31,51 +31,51 @@ def Colour(option: str, color: str, message:str ):
 			messageLength = len(message)
 			for i in range(messageLength):
 				r, g, b = rainbow(i)
-				print(f"\033[38;2;{r} ;{g} ;{b} m{message[i]}\033[0m{Ansii.reset}")
+				print(f"\033[38;2;{r};{g};{b} m{message[i]}\033[0m{Ansii.reset}")
 			
 		else:
 			colourOfOptionPicked = Ansii.colour[colourChoice]
 			print(f"{colourOfOptionPicked} {message} {Ansii.reset}")
 		
-		return None
+		return
 	
 
 	if command == "bold" :
 		colourOfOptionPicked = Ansii.bold[colourChoice]
 		print(f"{colourOfOptionPicked} {message} {Ansii.reset}")
-		return None
+		return
 	
 
 	if command == "underline" :
 		colourOfOptionPicked = Ansii.underline[colourChoice]
 		print(f"{colourOfOptionPicked} {message} {Ansii.reset}")
-		return None
+		return
 	
 
 	if command == "background" :
 		colourOfOptionPicked = Ansii.background[colourChoice]
 		print(f"{colourOfOptionPicked} {message} {Ansii.reset}")
-		return None
+		return
 	
 
 	if command == "high_intensity" :
 		colourOfOptionPicked = Ansii.high_Intensity[colourChoice]
 		print(f"{colourOfOptionPicked} {message} {Ansii.reset}")
-		return None
+		return
 	
 
 	if command == "bold_high_intensity" :
 		colourOfOptionPicked = Ansii.bold_High_Intensity[colourChoice]
 		print(f"{colourOfOptionPicked} {message} {Ansii.reset}")
-		return None
+		return
 	
 
 	if command == "high_intensity_backgrounds" :
 		colourOfOptionPicked = Ansii.high_Intensity_backgrounds[colourChoice]
 		print(f"{colourOfOptionPicked} {message} {Ansii.reset}")
-		return None
+		return
 	
-	return None
+	return
 
 
 def checkColourInList(colourchoice:str) -> bool :

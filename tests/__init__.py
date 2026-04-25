@@ -1,20 +1,22 @@
 import importlib
 import sys
+from pathlib import Path
 
 
 def load_adonis_modules():
-    """Import the package in the order expected by the current codebase."""
-    ansii = importlib.import_module("Adonis.Ansii")
+    """Import the package using the current package-relative layout."""
+    project_root = Path(__file__).resolve().parents[1]
+    if str(project_root) not in sys.path:
+        sys.path.insert(0, str(project_root))
 
-    # The library uses absolute imports internally, so the tests provide the
-    # aliases it expects without modifying the package code.
-    sys.modules["Ansii"] = ansii
-    main = importlib.import_module("Adonis.__main__")
-    sys.modules["__main__"].rainbow = main.rainbow
+    package = importlib.import_module("Adonis")
+    ansii = importlib.import_module("Adonis.Ansii")
+    utils = importlib.import_module("Adonis.utils")
 
     return {
+        "package": package,
         "ansii": ansii,
-        "main": main,
+        "utils": utils,
         "print_colour": importlib.import_module("Adonis.PrintColour"),
         "return_colour": importlib.import_module("Adonis.ReturnColour"),
     }

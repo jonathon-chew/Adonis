@@ -1,8 +1,8 @@
 import math, random
 from typing import Any
 
-from __main__ import rainbow
-import Ansii
+from . import utils
+from . import Ansii
 
 def ReturnColour(color:str, message: str) :
     """
@@ -15,7 +15,7 @@ def ReturnColour(color:str, message: str) :
         case "Rainbow":
             messageLength = len(message)
             for i in range(messageLength):
-                r, g, b = rainbow(i)
+                r, g, b = utils.rainbow(i)
                 return f"\033[38;2;{r};{g};{b}m{message[i]}\033[0m{Ansii.reset}"
             
         case "Empty":
@@ -34,7 +34,7 @@ def returnMessage ( message :str  ):
 
 	keys = Ansii.colour.keys()
 	
-	colourChoice:str = Ansii.colour[keys[randomIndex]]
+	colourChoice:str = Ansii.colour[keys[randomIndex]] # type: ignore
 
 	ReturnColour(colourChoice, message)
 
