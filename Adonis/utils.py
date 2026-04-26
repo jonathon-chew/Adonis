@@ -2,6 +2,21 @@ import math
 from . import Ansi
 from . import utils
 
+def alias_spelling(func):
+    name = func.__name__
+    replacements = {
+        "colour": "color",
+        "Colour": "Color",
+    }
+
+    for old, new in replacements.items():
+        if old in name:
+            alias = name.replace(old, new)
+            globals()[alias] = func
+
+    return func
+
+@alias_spelling
 def convert_colour(colourChoice:str) -> str:
 	colourPicked :str = colourChoice[0].upper()+colourChoice[1:]
 	if not utils._checkColourInList(colourPicked):
@@ -12,16 +27,16 @@ def convert_colour(colourChoice:str) -> str:
 
 	return colourPicked
 
-
+@alias_spelling
 def _checkColourInList(colourchoice:str) -> bool :
 	acceptableColours = [colour for colour in Ansi.colour.keys()]
 	acceptableColours.extend(["Empty", "Rainbow"])
 	return colourchoice in acceptableColours
 
-def _unacceptableColour(color: str) -> None :
-	keys = [color[k] for k in range(len(color))]	
+def _unacceptableColour(colour: str) -> None :
+	keys = [colour[k] for k in range(len(colour))]	
 	options= ', '.join(keys)
-	raise ValueError(f"{color} isn't avaliable from the list {options} ")
+	raise ValueError(f"{colour} isn't avaliable from the list {options} ")
 
 def _rainbow(i: int) -> list[float] :
 	f = 0.1

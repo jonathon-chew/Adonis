@@ -5,12 +5,13 @@ from . import utils
 from . import Ansi
 from Adonis.ReturnColour import ReturnColour
 
-def PrintColour(color:str, message: str) :
+@utils.alias_spelling
+def PrintColour(colour:str, message: str) :
     """
     Options: Black, Red, Green, Yellow, Blue, Purple, Cyan, White
     Can error if colour not found
     """
-    colourChoice: str = color[0].upper() + color[1:]
+    colourChoice: str = colour[0].upper() + colour[1:]
 
     match colourChoice:
         case "Rainbow":
@@ -77,7 +78,7 @@ def PrintTable(m: dict[Any, Any], keyColour: str="Blue", itemColour: str="Green"
     for k, v in m.items():
          print(f"{ReturnColour(keyColour, k)}: {ReturnColour(itemColour, v)}")
 	
-
+@utils.alias_spelling
 def PrintRGBColour(r:int , g:int , b: int, message:str ) :
     """
     Options: r, g, b have to be 0 or bigger and under 255
@@ -162,4 +163,3 @@ def PrintHighIntensityBackgrounds(colourChoice:str, message :str ) :
 
     print(f"{colourPicked}{message}{Ansi.reset}")
 	
-

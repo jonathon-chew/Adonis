@@ -4,12 +4,13 @@ from typing import Any
 from . import utils
 from . import Ansi
 
-def ReturnColour(color:str, message: str) :
+@utils.alias_spelling
+def ReturnColour(colour:str, message: str) :
     """
     Options: Black, Red, Green, Yellow, Blue, Purple, Cyan, White
     Can error if colour not found
     """
-    colourChoice: str = color[0].upper() + color[1:]
+    colourChoice: str = colour[0].upper() + colour[1:]
 
     match colourChoice:
         case "Rainbow":
@@ -79,7 +80,7 @@ def ReturnTable(m: dict[Any, Any], keyColour: str="Blue", itemColour: str="Green
     
     return returnString
 	
-
+@utils.alias_spelling
 def ReturnRGBColour(r:int , g:int , b: int, message:str ) :
     """
     Options: r, g, b have to be 0 or bigger and under 255
@@ -152,4 +153,3 @@ def ReturnHighIntensityBackgrounds(colourChoice:str, message :str ) :
 
     return f"{colourPicked}{message}{Ansi.reset}"
 	
-
