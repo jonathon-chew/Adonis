@@ -5,7 +5,21 @@ from . import utils
 from . import Ansi
 from Adonis.ReturnColour import ReturnColour
 
-@utils.alias_spelling
+def alias_spelling(func):
+    name = func.__name__
+    replacements = {
+        "colour": "color",
+        "Colour": "Color",
+    }
+
+    for old, new in replacements.items():
+        if old in name:
+            alias = name.replace(old, new)
+            globals()[alias] = func
+
+    return func
+
+@alias_spelling
 def PrintColour(colour:str, message: str) :
     """
     Options: Black, Red, Green, Yellow, Blue, Purple, Cyan, White

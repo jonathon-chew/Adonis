@@ -4,7 +4,21 @@ from typing import Any
 from . import utils
 from . import Ansi
 
-@utils.alias_spelling
+def alias_spelling(func):
+    name = func.__name__
+    replacements = {
+        "colour": "color",
+        "Colour": "Color",
+    }
+
+    for old, new in replacements.items():
+        if old in name:
+            alias = name.replace(old, new)
+            globals()[alias] = func
+
+    return func
+
+@alias_spelling
 def ReturnColour(colour:str, message: str) :
     """
     Options: Black, Red, Green, Yellow, Blue, Purple, Cyan, White

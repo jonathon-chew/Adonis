@@ -7,7 +7,6 @@ MODULES = load_adonis_modules()
 PACKAGE = MODULES["package"]
 UTILS = MODULES["utils"]
 
-
 class TestCoreHelpers(unittest.TestCase):
     def test_package_import_exposes_primary_helpers(self):
         self.assertTrue(hasattr(PACKAGE, "PrintInfo"))

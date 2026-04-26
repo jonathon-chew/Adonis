@@ -12,7 +12,6 @@ ANSI = MODULES["Ansi"]
 PRINT_COLOUR = MODULES["print_colour"]
 RETURN_COLOUR = MODULES["return_colour"]
 
-
 class TestReturnColour(unittest.TestCase):
     def test_return_colour_wraps_message_in_requested_escape_code(self):
         result = RETURN_COLOUR.ReturnColour("red", "Hello")
@@ -61,3 +60,13 @@ class TestPrintColour(unittest.TestCase):
     def test_print_warning_uses_yellow_output(self):
         output = self.capture_output(PRINT_COLOUR.PrintWarning, "Careful")
         self.assertEqual(output, f"{ANSI.colour['Yellow']}Careful{ANSI.reset}\n")
+
+
+    ## American
+    def test_print_color_writes_colored_message(self):
+        output = self.capture_output(PRINT_COLOUR.PrintColor, "Green", "Hello")
+        self.assertEqual(output, f"{ANSI.colour['Green']}Hello{ANSI.reset}\n")
+
+    def test_print_color_supports_empty_passthrough(self):
+        output = self.capture_output(PRINT_COLOUR.PrintColor, "Empty", "Plain")
+        self.assertEqual(output, "Plain\n")
