@@ -17,6 +17,9 @@ class TestReturnColour(unittest.TestCase):
         result = RETURN_COLOUR.ReturnColour("red", "Hello")
         self.assertEqual(result, f"{ANSI.colour['Red']}Hello{ANSI.reset}")
 
+    def test_package_root_return_color_alias_matches_return_colour(self):
+        self.assertEqual(MODULES["package"].ReturnColor("Blue", "Hello"), RETURN_COLOUR.ReturnColour("Blue", "Hello"))
+
     def test_return_colour_supports_empty_passthrough(self):
         self.assertEqual(RETURN_COLOUR.ReturnColour("Empty", "Hello"), "Hello")
 
@@ -45,9 +48,17 @@ class TestPrintColour(unittest.TestCase):
         output = self.capture_output(PRINT_COLOUR.PrintColour, "Green", "Hello")
         self.assertEqual(output, f"{ANSI.colour['Green']}Hello{ANSI.reset}\n")
 
+    def test_package_root_print_color_alias_matches_print_colour(self):
+        output = self.capture_output(MODULES["package"].PrintColor, "Green", "Hello")
+        self.assertEqual(output, f"{ANSI.colour['Green']}Hello{ANSI.reset}\n")
+
     def test_print_colour_supports_empty_passthrough(self):
         output = self.capture_output(PRINT_COLOUR.PrintColour, "Empty", "Plain")
         self.assertEqual(output, "Plain\n")
+
+    def test_print_colour_respects_custom_end(self):
+        output = self.capture_output(PRINT_COLOUR.PrintColour, "Green", "Hello", "")
+        self.assertEqual(output, f"{ANSI.colour['Green']}Hello{ANSI.reset}")
 
     def test_print_error_uses_red_output(self):
         output = self.capture_output(PRINT_COLOUR.PrintError, "Problem")
@@ -64,9 +75,17 @@ class TestPrintColour(unittest.TestCase):
 
     ## American
     def test_print_color_writes_colored_message(self):
-        output = self.capture_output(PRINT_COLOUR.PrintColor, "Green", "Hello")
+        output = self.capture_output(MODULES["package"].PrintColor, "Green", "Hello")
         self.assertEqual(output, f"{ANSI.colour['Green']}Hello{ANSI.reset}\n")
 
     def test_print_color_supports_empty_passthrough(self):
-        output = self.capture_output(PRINT_COLOUR.PrintColor, "Empty", "Plain")
+        output = self.capture_output(MODULES["package"].PrintColor, "Empty", "Plain")
         self.assertEqual(output, "Plain\n")
+
+    def test_print_table_uses_current_padded_coloured_layout(self):
+        output = self.capture_output(PRINT_COLOUR.PrintTable, {"id": "7", "name": "Adonis"})
+        expected = (
+            f"{RETURN_COLOUR.ReturnColour('Blue', 'id  ')}: {RETURN_COLOUR.ReturnColour('Green', '7')}\n"
+            f"{RETURN_COLOUR.ReturnColour('Blue', 'name')}: {RETURN_COLOUR.ReturnColour('Green', 'Adonis')}\n"
+        )
+        self.assertEqual(output, expected)

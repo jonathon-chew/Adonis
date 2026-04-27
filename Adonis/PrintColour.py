@@ -20,7 +20,7 @@ def alias_spelling(func):
     return func
 
 @alias_spelling
-def PrintColour(colour:str, message: str) :
+def PrintColour(colour:str, message: str, end: str="\n") :
     """
     Options: Black, Red, Green, Yellow, Blue, Purple, Cyan, White
     Can error if colour not found
@@ -32,17 +32,17 @@ def PrintColour(colour:str, message: str) :
             messageLength = len(message)
             for i in range(messageLength):
                 r, g, b = utils._rainbow(i)
-                print(f"\033[38;2;{r};{g};{b}m{message[i]}\033[0m{Ansi.reset}")
+                print(f"\033[38;2;{r};{g};{b}m{message[i]}\033[0m{Ansi.reset}",end=end)
             
         case "Empty":
-            print(message)
+            print(message,end=end)
         case _:
             colourPicked:str = Ansi.colour[colourChoice]
-            print(f"{colourPicked}{message}{Ansi.reset}")
+            print(f"{colourPicked}{message}{Ansi.reset}",end=end)
 	
 
 
-def Print(message :str ) :
+def Print(message :str, end: str="\n") :
 	"""
     Randomly choose a colour for you from: Black, Red, Green, Yellow, Blue, Purple, Cyan, White and prints it
     """
@@ -52,17 +52,17 @@ def Print(message :str ) :
 	
 	colourChoice:str = Ansi.colour[keys[randomIndex]] # type: ignore
 
-	PrintColour(colourChoice, message)
+	PrintColour(colourChoice, message, end)
 
 
-def PrintError(message: str) :
+def PrintError(message: str, end: str="\n") :
 	"""
     Uses the default colour of red - if you would like to determin you PrintError Colour use the function PrintColour instead
     """
 	PrintColour("Red", message)
 
 
-def PrintInfo(message :str ) :
+def PrintInfo(message :str, end: str="\n") :
 	"""
     Uses the default colour of Green- if you would like to determin you PrintError Colour use the function PrintColour instead
     """
@@ -70,18 +70,21 @@ def PrintInfo(message :str ) :
 	PrintColour("Green", message)
 
 
-def PrintWarning(message :str ) :
+def PrintWarning(message :str, end: str="\n") :
     """
     This ignores warnings from a malformed message, to be used quickly when the message will be known prior to use to be safe!
     """
 
     PrintColour("Yellow", message)
 
-def PrintTable(m: dict[Any, Any], keyColour: str="Blue", itemColour: str="Green") :
+def PrintTable(m: dict[Any, Any], keyColour: str="Blue", itemColour: str="Green", spacing: float=float('-inf'), end: str="\n") :
     """
     Prints any table that is passed into it - currently underdevelopment looking into how this could be more safely implimented
     Pass in a map of any values and returns a printed table of the key / values
     """
+
+    if spacing == float('-inf'):
+         spacing = max([len(x) for x in m.keys()])
 
     if keyColour not in Ansi.colour.keys():
          keyColour = "Blue"
@@ -90,19 +93,20 @@ def PrintTable(m: dict[Any, Any], keyColour: str="Blue", itemColour: str="Green"
          itemColour = "Green"
 
     for k, v in m.items():
-         print(f"{ReturnColour(keyColour, k)}: {ReturnColour(itemColour, v)}")
+         padded_key = f"{k:<{spacing}}"
+         print(f"{ReturnColour(keyColour, padded_key)}: {ReturnColour(itemColour, v)}",end=end)
 	
 @utils.alias_spelling
-def PrintRGBColour(r:int , g:int , b: int, message:str ) :
+def PrintRGBColour(r:int , g:int , b: int, message:str, end: str="\n") :
     """
     Options: r, g, b have to be 0 or bigger and under 255
     Can error if the values are not the right size
     """
 
-    print(f"\033[38;2;{r};{g};{b}m{message}\033[0m{Ansi.reset}")
+    print(f"\033[38;2;{r};{g};{b}m{message}\033[0m{Ansi.reset}",end=end)
 
 
-def PrintBold(colourChoice:str, message:str ) :
+def PrintBold(colourChoice:str, message:str, end: str="\n") :
     """
     Options: Black, Red, Green, Yellow, Blue, Purple, Cyan, White
     Can error if colour not found
@@ -112,10 +116,10 @@ def PrintBold(colourChoice:str, message:str ) :
     if not utils._checkColourInList(colourPicked): 
         utils._unacceptableColour(colourChoice)
 
-    print(f"{colourPicked}{message}{Ansi.reset}")
+    print(f"{colourPicked}{message}{Ansi.reset}",end=end)
 
 
-def PrintUnderline(colourChoice:str, message :str ) :
+def PrintUnderline(colourChoice:str, message :str, end: str="\n") :
     """
     Options: Black, Red, Green, Yellow, Blue, Purple, Cyan, White
     Can error if colour not found
@@ -126,10 +130,10 @@ def PrintUnderline(colourChoice:str, message :str ) :
           utils._unacceptableColour(colourChoice)
 
 
-    print(f"{colourPicked}{message}{Ansi.reset}")
+    print(f"{colourPicked}{message}{Ansi.reset}",end=end)
 
 
-def PrintBackground(colourChoice:str, message :str ) :
+def PrintBackground(colourChoice:str, message :str, end: str="\n") :
     """
     Options: Black, Red, Green, Yellow, Blue, Purple, Cyan, White
     Can error if colour not found
@@ -139,9 +143,9 @@ def PrintBackground(colourChoice:str, message :str ) :
     if not utils._checkColourInList(colourPicked): 
         utils._unacceptableColour(colourChoice)
 
-    print(f"{colourPicked}{message}{Ansi.reset}{Ansi.reset}")
+    print(f"{colourPicked}{message}{Ansi.reset}{Ansi.reset}",end=end)
 
-def PrintHighIntensity(colourChoice:str, message :str ) :
+def PrintHighIntensity(colourChoice:str, message :str, end: str="\n") :
     """
     Options: Black, Red, Green, Yellow, Blue, Purple, Cyan, White
     Can error if colour not found
@@ -151,10 +155,10 @@ def PrintHighIntensity(colourChoice:str, message :str ) :
     if not utils._checkColourInList(colourPicked): 
         utils._unacceptableColour(colourChoice)
 
-    print(f"{colourPicked}{message}{Ansi.reset}")
+    print(f"{colourPicked}{message}{Ansi.reset}",end=end)
 
 
-def PrintBoldHighIntensity(colourChoice:str, message :str ) :
+def PrintBoldHighIntensity(colourChoice:str, message :str, end: str="\n") :
     """
     Options: Black, Red, Green, Yellow, Blue, Purple, Cyan, White
     Can error if colour not found
@@ -163,9 +167,9 @@ def PrintBoldHighIntensity(colourChoice:str, message :str ) :
     if not utils._checkColourInList(colourPicked): 
         utils._unacceptableColour(colourChoice)
 
-    print(f"{colourPicked}{message}{Ansi.reset}")
+    print(f"{colourPicked}{message}{Ansi.reset}",end=end)
 
-def PrintHighIntensityBackgrounds(colourChoice:str, message :str ) :
+def PrintHighIntensityBackgrounds(colourChoice:str, message :str, end: str="\n") :
     """
     Options: Black, Red, Green, Yellow, Blue, Purple, Cyan, White
     Can error if colour not found
@@ -175,5 +179,5 @@ def PrintHighIntensityBackgrounds(colourChoice:str, message :str ) :
     if not utils._checkColourInList(colourPicked): 
         utils._unacceptableColour(colourChoice)
 
-    print(f"{colourPicked}{message}{Ansi.reset}")
+    print(f"{colourPicked}{message}{Ansi.reset}",end=end)
 	

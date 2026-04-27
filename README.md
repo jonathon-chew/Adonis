@@ -14,6 +14,7 @@
 ## Current Features
 - print coloured text directly with `PrintColour(...)`
 - return coloured text with `ReturnColour(...)`
+- expose package-root American-spelling aliases such as `PrintColor(...)` and `ReturnColor(...)`
 - support standard ANSI colours including black, red, green, yellow, blue, purple, cyan, and white
 - support an `Empty` mode that returns or prints plain text
 - support a `Rainbow` mode for per-character RGB colouring
@@ -25,19 +26,22 @@
 
 ## Behavior Notes (Current)
 - **Two API styles:** `PrintColour.py` writes directly to stdout, while `ReturnColour.py` returns ANSI-formatted strings for reuse elsewhere.
-- **Shared helpers:** `utils.py` now holds the shared helper functions, including `Colour(...)`, `checkColourInList(...)`, `unacceptableColour(...)`, and `rainbow(...)`.
+- **Shared helpers:** `utils.py` holds the shared helper functions, including colour validation, ANSI conversion helpers, and rainbow generation.
 - **Colour normalization:** most colour-based functions normalize the first letter, so `"red"` and `"Red"` both resolve to `Red`.
 - **Rainbow mode:** rainbow output is generated per character using the `rainbow()` helper in `utils.py`.
-- **Recommended imports:** `import Adonis` works, and the package root exposes the main print and return helpers. Utility helpers such as `rainbow(...)` are imported from `Adonis.utils`.
-- **Table helpers:** the table helpers are intentionally simple and currently focus on readable key/value output rather than padded terminal layouts.
+- **American spelling support:** package-root aliases such as `PrintColor(...)` and `ReturnColor(...)` are available. Utility aliases such as `convert_color(...)` also exist in `Adonis.utils`.
+- **Import surface:** `import Adonis` works, and the package root exposes the main print and return helpers. Utility helpers such as `_rainbow(...)` are imported from `Adonis.utils`.
+- **Module-level alias note:** the current alias decorator creates utility-level aliases, while the package root exposes the main public `Color` aliases explicitly.
+- **Output control:** the print-based helpers now support an `end=` argument so they can be composed without always forcing a newline.
+- **Table helpers:** `PrintTable(...)` pads keys for aligned output, while `ReturnTable(...)` currently returns a newline-separated coloured key/value string without extra padding controls.
 
 ## How To Run
 
-The recommended import style is from the package root for the main helpers, and from `Adonis.utils` for the utility functions:
+The recommended import style is from the package root for the main helpers, and from `Adonis.utils` for the lower-level utility functions:
 
 ```python
-from Adonis import PrintInfo, ReturnColour
-from Adonis.utils import rainbow
+from Adonis import PrintInfo, PrintColor, ReturnColour, ReturnColor
+from Adonis.utils import convert_color
 ```
 
 If you prefer, you can also import from the individual modules:
@@ -69,6 +73,16 @@ from Adonis.PrintColour import PrintInfo, PrintWarning, PrintRGBColour
 PrintInfo("Everything is healthy")
 PrintWarning("Disk usage is climbing")
 PrintRGBColour(255, 120, 0, "Custom RGB message")
+```
+
+### Use The Package-Root American Aliases
+
+```python
+from Adonis import PrintColor, ReturnColor
+
+PrintColor("Blue", "status")
+message = ReturnColor("Green", "ready")
+print(message)
 ```
 
 ### Build A Simple Table String
@@ -106,9 +120,12 @@ That makes it useful as a practical helper for scripts, quick CLIs, and terminal
 This project uses Python's built-in `unittest` module. The tests currently cover:
 - coloured string output for the return-based API
 - stdout behavior for the print-based API
+- package-root American-spelling aliases for the main public helpers
+- utility-level American-spelling aliases created by the decorator
 - convenience helpers such as error, info, and warning output
 - RGB formatting helpers
-- table-return behavior
+- table-return and table-print formatting behavior
+- `end=` handling for print helpers
 - shared helper coverage for `checkColourInList(...)` and `rainbow(...)`
 - direct package-import coverage for the current package layout
 
@@ -131,5 +148,5 @@ This project helped me get more comfortable with:
 ## Next Improvements
 
 - improve validation and error messages for unsupported inputs
-- make the table helpers render more clearly formatted output
-- decide whether utility helpers such as `rainbow(...)` and `Print(...)` should also be exported from the package root
+- decide whether American-spelling aliases should also exist on the individual `PrintColour` and `ReturnColour` modules, not just at the package root
+- decide whether utility helpers such as `_rainbow(...)` and `Print(...)` should also be exported from the package root

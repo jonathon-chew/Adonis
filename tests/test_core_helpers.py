@@ -11,6 +11,8 @@ class TestCoreHelpers(unittest.TestCase):
     def test_package_import_exposes_primary_helpers(self):
         self.assertTrue(hasattr(PACKAGE, "PrintInfo"))
         self.assertTrue(hasattr(PACKAGE, "ReturnColour"))
+        self.assertTrue(hasattr(PACKAGE, "PrintColor"))
+        self.assertTrue(hasattr(PACKAGE, "ReturnColor"))
 
     def test_check_colour_in_list_accepts_supported_values(self):
         self.assertTrue(UTILS._checkColourInList("Rainbow"))
@@ -37,3 +39,7 @@ class TestCoreHelpers(unittest.TestCase):
             math.sin(0.1 * 3 + 4 * math.pi / 3) * 127 + 128,
         ]
         self.assertEqual(channels, expected)
+
+    def test_utils_exposes_american_spelling_aliases(self):
+        self.assertTrue(hasattr(UTILS, "convert_color"))
+        self.assertTrue(hasattr(UTILS, "_checkColorInList"))
