@@ -35,7 +35,58 @@
 - **Output control:** the print-based helpers now support an `end=` argument so they can be composed without always forcing a newline.
 - **Table helpers:** `PrintTable(...)` pads keys for aligned output, while `ReturnTable(...)` currently returns a newline-separated coloured key/value string without extra padding controls.
 
-## How To Run
+## Installation
+
+If you want to try the library inside a virtual environment, you can install it directly from GitHub with `pip`.
+
+### macOS / Linux
+
+Create and activate a virtual environment:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+Install the project from the repository:
+
+```bash
+python3 -m pip install git+https://github.com/jonathon-chew/Adonis.git
+```
+
+### Windows PowerShell
+
+Create and activate a virtual environment:
+
+```powershell
+py -m venv .venv
+.venv\Scripts\Activate.ps1
+```
+
+Install the project from the repository:
+
+```powershell
+py -m pip install git+https://github.com/jonathon-chew/Adonis.git
+```
+
+### Windows Command Prompt
+
+Create and activate a virtual environment:
+
+```bat
+py -m venv .venv
+.venv\Scripts\activate.bat
+```
+
+Install the project from the repository:
+
+```bat
+py -m pip install git+https://github.com/jonathon-chew/Adonis.git
+```
+
+After that, you can import `Adonis` from your script or Python session inside the active environment.
+
+## Usage
 
 The recommended import style is from the package root for the main helpers, and from `Adonis.utils` for the lower-level utility functions:
 
