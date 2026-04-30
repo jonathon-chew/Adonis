@@ -3,6 +3,8 @@
 ## Summary
 `Adonis` is a small Python library for working with ANSI terminal colours. I built it as a lightweight utility so I could print or return coloured strings without rewriting escape sequences by hand, while keeping the API small enough to be easy to drop into scripts and terminal tools.
 
+![Adonis README card](docs/adonis_readme_card.svg)
+
 ## What This Project Demonstrates
 - Python utility-library design around a small focused API
 - separating print-based helpers from return-based helpers

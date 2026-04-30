@@ -1,6 +1,6 @@
 # Folders
 py-flags_venv/
-docs/*
+docs/*.md
 __pycache__
 Archive
 

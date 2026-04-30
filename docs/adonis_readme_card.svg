@@ -1,0 +1,67 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Adonis README Card</title>
+  <desc id="desc">A developer utility card for Adonis with a project title, tagline, feature chips, and a sample coloured terminal output line.</desc>
+  <defs>
+    <linearGradient id="bg" x1="72" y1="48" x2="1128" y2="582" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1220"/>
+      <stop offset="1" stop-color="#101B2D"/>
+    </linearGradient>
+    <linearGradient id="cardGlow" x1="166" y1="114" x2="1034" y2="516" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1E293B"/>
+      <stop offset="1" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="titleAccent" x1="0" y1="0" x2="230" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7DD3FC"/>
+      <stop offset="1" stop-color="#A78BFA"/>
+    </linearGradient>
+    <filter id="shadow" x="120" y="80" width="960" height="480" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#020617" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="#09111D"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#bg)"/>
+
+  <circle cx="1010" cy="108" r="170" fill="#0F766E" fill-opacity="0.10"/>
+  <circle cx="188" cy="554" r="220" fill="#2563EB" fill-opacity="0.10"/>
+
+  <g filter="url(#shadow)">
+    <rect x="150" y="105" width="900" height="420" rx="28" fill="url(#cardGlow)"/>
+    <rect x="151" y="106" width="898" height="418" rx="27" stroke="#334155"/>
+  </g>
+
+  <rect x="150" y="105" width="900" height="48" rx="28" fill="#0B1220"/>
+  <rect x="150" y="125" width="900" height="1" fill="#1E293B"/>
+  <circle cx="186" cy="129" r="7" fill="#EF4444"/>
+  <circle cx="212" cy="129" r="7" fill="#F59E0B"/>
+  <circle cx="238" cy="129" r="7" fill="#22C55E"/>
+  <text x="600" y="135" text-anchor="middle" fill="#94A3B8" font-family="'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace" font-size="18">Adonis utility card</text>
+
+  <text x="210" y="238" fill="url(#titleAccent)" font-family="'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace" font-size="68" font-weight="700">Adonis</text>
+  <text x="212" y="278" fill="#CBD5E1" font-family="Inter, 'Segoe UI', sans-serif" font-size="28">ANSI terminal formatting for Python</text>
+  <text x="212" y="322" fill="#94A3B8" font-family="Inter, 'Segoe UI', sans-serif" font-size="22">Small helpers for coloured output, returnable strings, and readable terminal tooling.</text>
+
+  <g>
+    <rect x="212" y="356" width="132" height="38" rx="19" fill="#0F172A" stroke="#1E40AF"/>
+    <text x="278" y="381" text-anchor="middle" fill="#BFDBFE" font-family="Inter, 'Segoe UI', sans-serif" font-size="18">Print / Return</text>
+
+    <rect x="356" y="356" width="122" height="38" rx="19" fill="#0F172A" stroke="#0F766E"/>
+    <text x="417" y="381" text-anchor="middle" fill="#99F6E4" font-family="Inter, 'Segoe UI', sans-serif" font-size="18">ANSI + RGB</text>
+
+    <rect x="490" y="356" width="96" height="38" rx="19" fill="#0F172A" stroke="#7C3AED"/>
+    <text x="538" y="381" text-anchor="middle" fill="#DDD6FE" font-family="Inter, 'Segoe UI', sans-serif" font-size="18">CLI-ready</text>
+  </g>
+
+  <g>
+    <rect x="212" y="422" width="776" height="64" rx="18" fill="#020617" stroke="#1E293B"/>
+    <text x="240" y="461" fill="#64748B" font-family="'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace" font-size="22">&gt;</text>
+    <text x="266" y="461" fill="#60A5FA" font-family="'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace" font-size="22">PrintColor</text>
+    <text x="389" y="461" fill="#E2E8F0" font-family="'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace" font-size="22">(</text>
+    <text x="403" y="461" fill="#34D399" font-family="'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace" font-size="22">"Green"</text>
+    <text x="492" y="461" fill="#E2E8F0" font-family="'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace" font-size="22">,</text>
+    <text x="510" y="461" fill="#FBBF24" font-family="'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace" font-size="22">"build ok"</text>
+    <text x="624" y="461" fill="#E2E8F0" font-family="'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace" font-size="22">)</text>
+    <circle cx="856" cy="454" r="8" fill="#22C55E"/>
+    <text x="876" y="461" fill="#86EFAC" font-family="'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace" font-size="22">build ok</text>
+  </g>
+</svg>
