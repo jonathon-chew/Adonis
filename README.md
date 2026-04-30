@@ -16,7 +16,7 @@
 ## Current Features
 - print coloured text directly with `PrintColour(...)`
 - return coloured text with `ReturnColour(...)`
-- expose package-root American-spelling aliases such as `PrintColor(...)` and `ReturnColor(...)`
+- expose American-spelling aliases such as `PrintColor(...)` and `ReturnColor(...)` at the package root and in the print/return modules
 - support standard ANSI colours including black, red, green, yellow, blue, purple, cyan, and white
 - support an `Empty` mode that returns or prints plain text
 - support a `Rainbow` mode for per-character RGB colouring
@@ -30,12 +30,11 @@
 - **Two API styles:** `PrintColour.py` writes directly to stdout, while `ReturnColour.py` returns ANSI-formatted strings for reuse elsewhere.
 - **Shared helpers:** `utils.py` holds the shared helper functions, including colour validation, ANSI conversion helpers, and rainbow generation.
 - **Colour normalization:** most colour-based functions normalize the first letter, so `"red"` and `"Red"` both resolve to `Red`.
-- **Rainbow mode:** rainbow output is generated per character using the `rainbow()` helper in `utils.py`.
-- **American spelling support:** package-root aliases such as `PrintColor(...)` and `ReturnColor(...)` are available. Utility aliases such as `convert_color(...)` also exist in `Adonis.utils`.
-- **Import surface:** `import Adonis` works, and the package root exposes the main print and return helpers. Utility helpers such as `_rainbow(...)` are imported from `Adonis.utils`.
-- **Module-level alias note:** the current alias decorator creates utility-level aliases, while the package root exposes the main public `Color` aliases explicitly.
+- **Rainbow mode:** rainbow output is generated per character using `_rainbow(...)` in `utils.py`.
+- **American spelling support:** `PrintColor(...)` and `ReturnColor(...)` are available from `Adonis`, `Adonis.PrintColour`, and `Adonis.ReturnColour`. Utility aliases such as `convert_color(...)` and `_checkColorInList(...)` exist in `Adonis.utils`.
+- **Import surface:** `import Adonis` works, the package root exposes the main print and return helpers, and lower-level helpers remain available through `Adonis.utils`.
 - **Output control:** the print-based helpers now support an `end=` argument so they can be composed without always forcing a newline.
-- **Table helpers:** `PrintTable(...)` pads keys for aligned output, while `ReturnTable(...)` currently returns a newline-separated coloured key/value string without extra padding controls.
+- **Table helpers:** `PrintTable(...)` pads keys for aligned output and accepts a `spacing` override, while `ReturnTable(...)` returns a newline-separated coloured key/value string.
 
 ## Installation
 
@@ -97,11 +96,21 @@ from Adonis import PrintInfo, PrintColor, ReturnColour, ReturnColor
 from Adonis.utils import convert_color
 ```
 
-If you prefer, you can also import from the individual modules:
+If you prefer, you can also import the package itself and call through the module namespace:
 
 ```python
-from Adonis.PrintColour import PrintInfo
-from Adonis.ReturnColour import ReturnColour
+import Adonis
+
+Adonis.PrintInfo("ready")
+message = Adonis.ReturnColor("Blue", "status: running")
+print(message)
+```
+
+You can also import from the individual modules:
+
+```python
+from Adonis.PrintColour import PrintInfo, PrintColor
+from Adonis.ReturnColour import ReturnColour, ReturnColor
 ```
 
 ## Examples
@@ -136,6 +145,16 @@ from Adonis import PrintColor, ReturnColor
 PrintColor("Blue", "status")
 message = ReturnColor("Green", "ready")
 print(message)
+```
+
+### Use The Module-Level American Aliases
+
+```python
+from Adonis.PrintColour import PrintColor
+from Adonis.ReturnColour import ReturnColor
+
+PrintColor("Cyan", "module alias")
+print(ReturnColor("Yellow", "module alias"))
 ```
 
 ### Build A Simple Table String
@@ -174,6 +193,7 @@ This project uses Python's built-in `unittest` module. The tests currently cover
 - coloured string output for the return-based API
 - stdout behavior for the print-based API
 - package-root American-spelling aliases for the main public helpers
+- module-level American-spelling aliases for the print and return modules
 - utility-level American-spelling aliases created by the decorator
 - convenience helpers such as error, info, and warning output
 - RGB formatting helpers
@@ -201,5 +221,5 @@ This project helped me get more comfortable with:
 ## Next Improvements
 
 - improve validation and error messages for unsupported inputs
-- decide whether American-spelling aliases should also exist on the individual `PrintColour` and `ReturnColour` modules, not just at the package root
 - decide whether utility helpers such as `_rainbow(...)` and `Print(...)` should also be exported from the package root
+- reduce duplicated alias-decorator logic across `utils.py`, `PrintColour.py`, and `ReturnColour.py`
