@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup (
     name="Adonis",
-    version="v0.2.1",
+    version="0.2.1",
     description="""
 `Adonis` is a small Python library for working with ANSI terminal colours.
 """,
