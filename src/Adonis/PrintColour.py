@@ -59,7 +59,7 @@ def PrintError(message: str, end: str="\n") :
 	"""
     Uses the default colour of red - if you would like to determin you PrintError Colour use the function PrintColour instead
     """
-	PrintColour("Red", message)
+	PrintColour("Red", message, end=end)
 
 
 def PrintInfo(message :str, end: str="\n") :
@@ -67,7 +67,7 @@ def PrintInfo(message :str, end: str="\n") :
     Uses the default colour of Green- if you would like to determin you PrintError Colour use the function PrintColour instead
     """
 	
-	PrintColour("Green", message)
+	PrintColour("Green", message, end=end)
 
 
 def PrintWarning(message :str, end: str="\n") :
@@ -75,7 +75,7 @@ def PrintWarning(message :str, end: str="\n") :
     This ignores warnings from a malformed message, to be used quickly when the message will be known prior to use to be safe!
     """
 
-    PrintColour("Yellow", message)
+    PrintColour("Yellow", message, end=end)
 
 def PrintTable(m: dict[Any, Any], keyColour: str="Blue", itemColour: str="Green", spacing: float=float('-inf'), end: str="\n") :
     """
