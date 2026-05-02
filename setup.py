@@ -10,5 +10,6 @@ setup (
     author="Jonathon Chew",
     author_email="jonchew626@hotmail.com",
     url="https://github.com/jonathon-chew/Adonis",
-    packages=find_packages(exclude=("tests*")),
+    packages=find_packages(where=("src"),exclude=("tests*")),
+    package_dir={"": "src"},
 )
