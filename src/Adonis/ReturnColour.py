@@ -41,7 +41,7 @@ def ReturnColour(colour:str, message: str) :
 	
 
 
-def ReturnMessage ( message :str  ):
+def ReturnMessage ( message :str  ) -> str | None:
 	"""
     Randomly choose a colour for you from: Black, Red, Green, Yellow, Blue, Purple, Cyan, White and prints it
     """
@@ -51,32 +51,33 @@ def ReturnMessage ( message :str  ):
 	
 	colourChoice:str = Ansi.colour[keys[randomIndex]] # type: ignore
 
-	ReturnColour(colourChoice, message)
+	return ReturnColour(colourChoice, message)
 
 
-def ReturnError(message: str) :
-	"""
+def ReturnError(message: str) -> str | None:
+    """
     Uses the default colour of red - if you would like to determin you ReturnError Colour use the function ReturnColour instead
     """
-	ReturnColour("Red", message)
+    
+    return ReturnColour("Red", message)
 
 
-def ReturnInfo(message :str ) :
-	"""
+def ReturnInfo(message :str ) -> str | None:
+    """
     Uses the default colour of Green- if you would like to determin you ReturnError Colour use the function ReturnColour instead
     """
 	
-	ReturnColour("Green", message)
+    return ReturnColour("Green", message)
 
 
-def ReturnWarning(message :str ) :
+def ReturnWarning(message :str ) -> str | None:
     """
     This ignores warnings from a malformed message, to be used quickly when the message will be known prior to use to be safe!
     """
 
-    ReturnColour("Yellow", message)
+    return ReturnColour("Yellow", message)
 
-def ReturnTable(m: dict[Any, Any], keyColour: str="Blue", itemColour: str="Green") :
+def ReturnTable(m: dict[Any, Any], keyColour: str="Blue", itemColour: str="Green") -> str | None:
     """
     Returns any table that is passed into it - currently underdevelopment looking into how this could be more safely implimented
     Pass in a map of any values and returns a printed table of the key / values
@@ -95,7 +96,7 @@ def ReturnTable(m: dict[Any, Any], keyColour: str="Blue", itemColour: str="Green
     return returnString
 	
 @utils.alias_spelling
-def ReturnRGBColour(r:int , g:int , b: int, message:str ) :
+def ReturnRGBColour(r:int , g:int , b: int, message:str ) -> str | None:
     """
     Options: r, g, b have to be 0 or bigger and under 255
     Can error if the values are not the right size
@@ -104,7 +105,7 @@ def ReturnRGBColour(r:int , g:int , b: int, message:str ) :
     return f"\033[38;2;{r};{g};{b}m{message}\033[0m{Ansi.reset}"
 
 
-def ReturnBold(colourChoice:str, message:str ) :
+def ReturnBold(colourChoice:str, message:str ) -> str | None:
     """
     Options: Black, Red, Green, Yellow, Blue, Purple, Cyan, White
     Can error if colour not found
@@ -115,7 +116,7 @@ def ReturnBold(colourChoice:str, message:str ) :
     return f"{colourPicked}{message}{Ansi.reset}"
 
 
-def ReturnUnderline(colourChoice:str, message :str ) :
+def ReturnUnderline(colourChoice:str, message :str ) -> str | None:
     """
     Options: Black, Red, Green, Yellow, Blue, Purple, Cyan, White
     Can error if colour not found
@@ -127,7 +128,7 @@ def ReturnUnderline(colourChoice:str, message :str ) :
     return f"{colourPicked}{message}{Ansi.reset}"
 
 
-def ReturnBackground(colourChoice:str, message :str ) :
+def ReturnBackground(colourChoice:str, message :str ) -> str | None:
     """
     Options: Black, Red, Green, Yellow, Blue, Purple, Cyan, White
     Can error if colour not found
@@ -137,7 +138,7 @@ def ReturnBackground(colourChoice:str, message :str ) :
 
     return f"{colourPicked}{message}{Ansi.reset}{Ansi.reset}"
 
-def ReturnHighIntensity(colourChoice:str, message :str ) :
+def ReturnHighIntensity(colourChoice:str, message :str ) -> str | None:
     """
     Options: Black, Red, Green, Yellow, Blue, Purple, Cyan, White
     Can error if colour not found
@@ -148,7 +149,7 @@ def ReturnHighIntensity(colourChoice:str, message :str ) :
     return f"{colourPicked}{message}{Ansi.reset}"
 
 
-def ReturnBoldHighIntensity(colourChoice:str, message :str ) :
+def ReturnBoldHighIntensity(colourChoice:str, message :str ) -> str | None:
     """
     Options: Black, Red, Green, Yellow, Blue, Purple, Cyan, White
     Can error if colour not found
@@ -157,7 +158,7 @@ def ReturnBoldHighIntensity(colourChoice:str, message :str ) :
 
     return f"{colourPicked}{message}{Ansi.reset}"
 
-def ReturnHighIntensityBackgrounds(colourChoice:str, message :str ) :
+def ReturnHighIntensityBackgrounds(colourChoice:str, message :str ) -> str | None:
     """
     Options: Black, Red, Green, Yellow, Blue, Purple, Cyan, White
     Can error if colour not found
