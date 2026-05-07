@@ -3,6 +3,8 @@ py-flags_venv/
 docs/*.md
 __pycache__
 Archive
+build/
+src/Adonis.egg-info/
 
 # Files
 example.py
