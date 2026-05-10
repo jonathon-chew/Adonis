@@ -76,3 +76,5 @@ colour = {
 }
 
 reset = "\x1b[0m"
+
+clear_line = "\x1b[2K"
